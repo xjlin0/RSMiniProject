@@ -7,7 +7,7 @@ class Item < ActiveRecord::Base
 
   def self.import(filename, csv_options)
     CSV.foreach(filename, csv_options) do |row|
-      Item.find_or_create_by!(id: row[:item_id], name: row[:name])
+      p Item.find_or_create_by!(id: row[:item_id], name: row[:name])
     end
   end
 
