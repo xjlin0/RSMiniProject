@@ -5,3 +5,12 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+require 'csv'
+csv_options = {
+                headers: :true,
+                col_sep: "\t",
+                converters: :numeric,
+                header_converters: :symbol,
+              }
+
+Item.import("mini_proj-items.csv", csv_options)

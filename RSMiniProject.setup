@@ -1,10 +1,12 @@
 #Here is the script to setup this rails app, followed Rails Girls Guides of "Adding Authentication with Devise" at http://guides.railsgirls.com/devise/.  Have to add installation of devise and associate join tables by has many through
 rails new RSMiniProject -G -B --database=postgresql
+cp problems/*csv RSMiniProject/
 echo "gem 'rspec-rails'" >> RSMiniProject/Gemfile
 echo "gem 'bcrypt'" >> RSMiniProject/Gemfile
 echo "gem 'devise'" >> RSMiniProject/Gemfile
 echo "gem 'dotenv-rails'" >> RSMiniProject/Gemfile
 echo ".env" >> RSMiniProject/.gitignore
+echo "*.csv" >> RSMiniProject/.gitignore
 cd RSMiniProject && bundle install
 rails generate scaffold User name
 rails generate model Item name
