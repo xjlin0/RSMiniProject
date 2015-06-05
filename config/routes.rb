@@ -1,10 +1,12 @@
 Rails.application.routes.draw do
-  devise_for :users
-  get 'items/index'
+  devise_for :admins
 
-  get 'items/show'
+  #get 'items/index'
+  #get 'items/show'
 
-  resources :users
+  root to: redirect('/admins/sign_in')
+
+  resources :admins
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
