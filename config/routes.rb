@@ -1,12 +1,12 @@
 Rails.application.routes.draw do
-  devise_for :admins
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
+  get 'items/index'
 
-  #get 'items/index'
-  #get 'items/show'
+  get 'items/show'
 
-  root to: redirect('/admins/')
+  root to: redirect('/admin')
 
-  resources :admins
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
