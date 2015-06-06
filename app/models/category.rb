@@ -7,4 +7,5 @@ class Category < ActiveRecord::Base
       p Category.find_or_create_by!(id: row[:category_id], name: row[:name])
     end
   end
+
 end
