@@ -12,6 +12,28 @@ ActiveAdmin.register User do
 #   permitted << :other if resource.something?
 #   permitted
 # end
+  config.filters = false
+  config.sort_order = 'id_asc'
+  permit_params :id, :name, items: []
+
+    index do
+      column :id
+      column :name
 
 
+      column :items do |user|
+        table_for user.items do
+          column do |item|
+            "#{item.name} (#{item.categories.first.name})"
+          end
+        end
+      end
+
+      # column :items do |user|
+      #   p user.items
+      # end
+
+
+
+    end
 end
