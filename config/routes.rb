@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   #get 'items/index'
   #get 'items/show'
 
-  root to: redirect('/admins/sign_in')
+  root to: redirect('/admins/')
 
   resources :admins
   # The priority is based upon order of creation: first created -> highest priority.

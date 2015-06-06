@@ -1,56 +1,56 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>RSMiniProject</title>
-  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
-  <nav class="navbar navbar-default" role="navigation">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="/">Test app</a>
+  <head>
+    <title>RSMiniProject</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <nav class="navbar navbar-default" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">Test app</a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Links</a></li>
+          </ul>
+          <p class="navbar-text pull-right">
+            <% if admin_signed_in? %>
+              Logged in as <strong><%= current_admin.email %></strong>.
+              <%= link_to 'Edit profile', edit_admin_registration_path, :class => 'navbar-link' %> |
+              <%= link_to "Logout", destroy_admin_session_path, method: :delete, :class => 'navbar-link'  %>
+            <% else %>
+              <%= link_to "Sign up", new_admin_registration_path, :class => 'navbar-link'  %> |
+              <%= link_to "Login", new_admin_session_path, :class => 'navbar-link'  %>
+            <% end %>
+          </p>
+        </div>
+      </div>
+    </nav>
+    <div class="container">
+      <% if notice %>
+        <p class="alert alert-success"><%= notice %></p>
+      <% end %>
+      <% if alert %>
+        <p class="alert alert-danger"><%= alert %></p>
+      <% end %>
+      <%= yield %>
     </div>
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Links</a></li>
-      </ul>
-      <p class="navbar-text pull-right">
-<% if admin_signed_in? %>
-  Logged in as <strong><%= current_admin.email %></strong>.
-  <%= link_to 'Edit profile', edit_admin_registration_path, :class => 'navbar-link' %> |
-  <%= link_to "Logout", destroy_admin_session_path, method: :delete, :class => 'navbar-link'  %>
-<% else %>
-  <%= link_to "Sign up", new_admin_registration_path, :class => 'navbar-link'  %> |
-  <%= link_to "Login", new_admin_session_path, :class => 'navbar-link'  %>
-<% end %>
-</p>
-    </div>
+    <footer>
+      <div class="container">
+        Practice for RSMiniProject
   </div>
-</nav>
-<div class="container">
-  <% if notice %>
-  <p class="alert alert-success"><%= notice %></p>
-<% end %>
-<% if alert %>
-  <p class="alert alert-danger"><%= alert %></p>
-<% end %>
-  <%= yield %>
-</div>
-<footer>
-  <div class="container">
-    Practice for RSMiniProject
-  </div>
-</footer>
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-</body>
+    </footer>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  </body>
 </html>

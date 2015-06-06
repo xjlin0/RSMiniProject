@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-
+gem 'htmlbeautifier'
 gem 'rspec-rails'
 gem 'dotenv-rails'
 gem 'devise'
