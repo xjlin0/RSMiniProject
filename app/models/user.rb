@@ -8,4 +8,7 @@ class User < ActiveRecord::Base
     end
   end
 
+  def recommended_items
+    self.name + " got Recommended items!"
+  end
 end

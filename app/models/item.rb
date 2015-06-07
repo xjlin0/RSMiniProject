@@ -11,4 +11,11 @@ class Item < ActiveRecord::Base
     end
   end
 
+  def category_names
+    name_string = self.categories.inject(String.new) do |result_string, category|
+      result_string + category.name + ", "
+    end
+    name_string.chomp(", ")
+  end
+
 end
