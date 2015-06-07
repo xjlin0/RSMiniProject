@@ -18,20 +18,17 @@ ActiveAdmin.register User do
 
     index do
       column :id
-      column :name
+      column("Name", :sortable => :name) {|user| link_to "##{user.name} ", admin_user_path(user) }
 
 
-      column :items do |user|
+      column ("Items (categories)") do |user|
         table_for user.items do
           column do |item|
-            "#{item.name} (#{item.categories.first.name})"
+            all_category_name = item.categories.inject(""){|a,e|a+e.name+", "}.chomp(", ")
+            "#{item.name} (#{all_category_name})"
           end
         end
       end
-
-      # column :items do |user|
-      #   p user.items
-      # end
 
 
 
