@@ -1,4 +1,7 @@
 class Item < ActiveRecord::Base
+
+  include ItemsHelper
+
   has_many :items_users
   has_many :users, through: :items_users
 
@@ -11,23 +14,12 @@ class Item < ActiveRecord::Base
     end
   end
 
-  def category_names_string(seperator=", ")
-    self.categories.pluck(:name).join(seperator)
-  end
-
-  def similar_items(limit=3, seperator=" | ")
-    item_categories_array = self.categories.pluck(:id) #get all category ids to query database
-    #The following sql querys by item's category id, sorted by number of returned items category.
-    id_hash = Item.joins(:categories).where('categories_items.category_id': item_categories_array).group('items.id').order('count_categories_items_category_id desc').limit(limit+1).count('categories_items.category_id')
-    id_hash.delete(self.id)  #remove caller itself from the query results, if present
-    id_hash.keys.first(limit).map{|relatives_id| Item.find(relatives_id)}
-  end
-
-  def self.recommendations_string(items_array, seperator=", ")
+  def self.recommendations_string(items_relations, seperator=", ")
     results = Array.new
-    items_array.each do |item|
+    items_relations.each do |item|
       results << "#{item.name} (#{item.category_names_string})"
     end
     results.join(seperator)
   end
+
 end
