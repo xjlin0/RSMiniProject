@@ -4,7 +4,7 @@ class Category < ActiveRecord::Base
 
   def self.import(filename, csv_options)
     CSV.foreach(filename, csv_options) do |row|
-      p Category.find_or_create_by!(id: row[:category_id], name: row[:name])
+      p Category.create!(id: row[:category_id], name: row[:name]) rescue (print "Record not saved: "; p row)
     end
   end
 

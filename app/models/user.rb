@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
 
   def self.import(filename, csv_options)
     CSV.foreach(filename, csv_options) do |row|
-      p User.create(id: row[:user_id], name: row[:name])
+      p User.create(id: row[:user_id], name: row[:name]) rescue (print "Record not saved: "; p row)
     end
   end
 
