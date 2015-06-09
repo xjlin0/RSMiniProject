@@ -4,6 +4,12 @@ ActiveAdmin.register User do
   config.filters = false
   config.sort_order = 'id_asc'
 
+  controller do
+    def scoped_collection
+      super.includes(:items, {items: :categories})
+    end
+  end
+
   index do
     column :id
     column("Name", sortable: :name) {|user| link_to "#{user.name} ", admin_user_path(user) }
@@ -17,8 +23,8 @@ ActiveAdmin.register User do
   show do
     panel "Details" do
       table_for(user.items) do |t|
-        t.column("Purchase Items (Categories)") {|item| "#{item.name} (#{item.category_names_string})"  }
-        t.column("Recommendations (Categories)") {|item| "#{Item.recommendations_string(item.similar_items(user))}" }
+        t.column("ID: Purchase Items (Categories)") {|item| "#{item.id}: #{item.name} (#{item.category_names_string})"  }
+        t.column("ID: Recommendations (Categories)") {|item| "#{Item.recommendations_string(items_relations: item.similar_items(user: user))}" }
       end
     end
   end

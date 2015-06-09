@@ -13,8 +13,8 @@ csv_options = {
                 header_converters: :symbol,
               }
 
-Item.import("mini_proj-items.csv", csv_options)
-Category.import("mini_proj-categories.csv", csv_options)
-CategoriesItem.import("mini_proj-categories_items.csv", csv_options)
-User.import("mini_proj-users.csv", csv_options)
-ItemsUser.import("mini_proj-items_users.csv", csv_options)
+Item.import(filename: "mini_proj-items.csv", csv_options: csv_options)
+Category.import(filename: "mini_proj-categories.csv", csv_options: csv_options)
+CategoriesItem.import(filename: "mini_proj-categories_items.csv", csv_options: csv_options)
+User.import(filename: "mini_proj-users.csv", csv_options: csv_options)
+ItemsUser.import(filename: "mini_proj-items_users.csv", csv_options: csv_options)
