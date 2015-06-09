@@ -21,12 +21,21 @@ class Item < ActiveRecord::Base
     category_ids = arguments.fetch(:category_ids)
     limit        = arguments.fetch(:limit) {50}
 
-    self.
-    joins(:categories).
-    where('categories.id': category_ids).
-    group(:id).
-    having('items.categories_count = ?', category_ids.length).
-    limit(limit)
+    if category_ids.length == 1
+      return self.
+      joins(:categories).
+      where('categories.id': category_ids).
+      group(:id).
+      having('items.categories_count = ?', category_ids.length).
+      limit(limit)
+    else
+      return self.
+      joins(:categories).
+      where('categories.id': category_ids).
+      group(:id).
+      having('count(categories.id) = ?', category_ids.length).
+      limit(limit)
+    end
   end #http://stackoverflow.com/questions/28733170
 
   def self.with_more_categories(arguments = {})
@@ -36,8 +45,10 @@ class Item < ActiveRecord::Base
     self.
     joins(:categories).
     where('categories.id': category_ids).
-    group(:id).
-    having('items.categories_count > ?', category_ids.length).
+    group('items.id').
+    having('count(categories.id) > ?', category_ids.length).
+    order('count_categories_id asc').
+    count('categories.id')
     limit(limit)
   end #http://stackoverflow.com/questions/28733170
 
