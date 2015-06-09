@@ -1,6 +1,6 @@
 class CategoriesItem < ActiveRecord::Base
   belongs_to :category
-  belongs_to :item
+  belongs_to :item, counter_cache: :categories_count
 
   def self.import(arguments = {})
     filename    = arguments.fetch(:filename)
