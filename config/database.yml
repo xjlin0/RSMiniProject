@@ -80,6 +80,8 @@ test:
 #
 production:
   <<: *default
+  host: yumiko.cdqli3dfsypd.us-west-1.rds.amazonaws.com
+  port: 5432
   database: RSMiniProject_production
-  username: RSMiniProject
+  username: jack
   password: <%= ENV['RSMINIPROJECT_DATABASE_PASSWORD'] %>
