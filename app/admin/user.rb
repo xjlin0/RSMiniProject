@@ -24,7 +24,10 @@ ActiveAdmin.register User do
     panel "Details" do
       table_for(user.items) do |t|
         t.column("ID: Purchase Items (Categories)") {|item| "#{item.id}: #{item.name} (#{item.category_names_string})"  }
-        t.column("ID: Recommendations (Categories)") {|item| "#{Item.recommendations_string(items_array: item.similar_items(user: user))}" }
+        t.column("ID: Recommendations (Categories)") do |item|
+          "line 28"
+          "#{Item.recommendations_string(items_array: item.similar_items(user: user))}"
+        end
       end
     end
   end
