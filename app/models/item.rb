@@ -21,21 +21,13 @@ class Item < ActiveRecord::Base
     category_ids = arguments.fetch(:category_ids)
     limit        = arguments.fetch(:limit) {50}
 
-    if category_ids.length == 1
-      return self.
-      joins(:categories).
-      where('categories.id': category_ids).
-      group(:id).
-      having('items.categories_count = ?', category_ids.length).
-      limit(limit)
-    else
-      return self.
-      joins(:categories).
-      where('categories.id': category_ids).
-      group(:id).
-      having('count(categories.id) = ?', category_ids.length).
-      limit(limit)
-    end
+    self.
+    joins(:categories).
+    where('categories.id': category_ids).
+    where('items.categories_count = ?', category_ids.length).
+    group(:id).
+    having('count(categories.id) = ?', category_ids.length).
+    limit(limit)
   end #http://stackoverflow.com/questions/28733170
 
   def self.with_more_categories(arguments = {})
@@ -45,14 +37,15 @@ class Item < ActiveRecord::Base
     self.
     joins(:categories).
     where('categories.id': category_ids).
+    where('items.categories_count > ?', category_ids.length).
     group('items.id').
-    having('count(categories.id) > ?', category_ids.length).
+    having('count(categories.id) = ?', category_ids.length).
     order('count_categories_id asc').
     count('categories.id')
     limit(limit)
   end #http://stackoverflow.com/questions/28733170
 
-  def self.with_any_categories(arguments = {})
+  def self.matched_any_categories(arguments = {})
     category_ids = arguments.fetch(:category_ids)
     limit        = arguments.fetch(:limit) {50}
 
@@ -62,6 +55,13 @@ class Item < ActiveRecord::Base
     group(:id).
     limit(limit)
   end #http://stackoverflow.com/questions/28733170
+
+  def self.suggest_promotions(arguments = {})
+    promotion_items_ids = arguments.fetch(:promotion_items_ids)
+    limit               = arguments.fetch(:limit) {50}
+
+    self.find(promotion_items_ids).limit(limit)
+  end
 
   def self.recommendations_string(arguments = {})
     items_array  = arguments.fetch(:items_array)
